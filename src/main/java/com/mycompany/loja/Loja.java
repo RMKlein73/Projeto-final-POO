@@ -2,66 +2,55 @@ package com.mycompany.loja;
 
 import java.util.ArrayList;
 public class Loja {
-    private ArrayList<Funcionario> funcionarios;
-    private ArrayList<Caixa> caixas;
-    private ArrayList<Pagamentos> pagamentos;
+private ArrayList<Funcionario> funcionarios;
+private ArrayList<Pagamentos> pagamentos;
 
-    public Loja() {
-        funcionarios = new ArrayList<>();
-        caixas = new ArrayList<>();
-        pagamentos = new ArrayList<>();
-    }
+public Loja() {
+    funcionarios = new ArrayList<>();
+    pagamentos = new ArrayList<>();
+}
 
-    public void cadastrarFuncionario(Funcionario funcionario) {
-        funcionarios.add(funcionario);
-    }
+public void cadastrarFuncionario(Funcionario funcionario) {
 
-    public void cadastrarCaixa(Caixa caixa) {
-        caixas.add(caixa);
-    }
-
-    public void cadastrarPagamento(Pagamentos pagamento) {
-        pagamentos.add(pagamento);
-    }
-
-    public void listarFuncionarios() {
-
-        if (funcionarios.isEmpty()) {
-            System.out.println("Nenhum funcionário cadastrado.");
+    for (Funcionario f : funcionarios) {
+        if (f.getId() == funcionario.getId()) {
+            System.out.println("Já existe um funcionário com esse ID.");
             return;
         }
-
-        for (Funcionario funcionario : funcionarios) {
-            System.out.println("---------------");
-            funcionario.mostrarDados();
-        }
     }
 
-    public void listarCaixas() {
+    funcionarios.add(funcionario);
+}
 
-        if (caixas.isEmpty()) {
-            System.out.println("Nenhum caixa cadastrado.");
-            return;
-        }
+public void cadastrarPagamento(Pagamentos pagamento) {
+    pagamentos.add(pagamento);
+}
 
-        for (Caixa caixa : caixas) {
-            System.out.println("---------------");
-            caixa.mostrarDados();
-        }
+public void listarFuncionarios() {
+
+    if (funcionarios.isEmpty()) {
+        System.out.println("Nenhum funcionário cadastrado.");
+        return;
     }
 
-    public void listarPagamentos() {
+    for (Funcionario funcionario : funcionarios) {
+        System.out.println("---------------");
+        funcionario.mostrarDados();
+    }
+}
 
-        if (pagamentos.isEmpty()) {
-            System.out.println("Nenhum pagamento cadastrado.");
-            return;
-        }
+public void listarPagamentos() {
 
-        for (Pagamentos pagamento : pagamentos) {
-            System.out.println("---------------");
-            pagamento.mostrarPagamento();
-        }
-        
+    if (pagamentos.isEmpty()) {
+        System.out.println("Nenhum pagamento cadastrado.");
+        return;
+    }
+
+    for (Pagamentos pagamento : pagamentos) {
+        System.out.println("---------------");
+        pagamento.mostrarPagamento();
     }
     
+}
+
 }
