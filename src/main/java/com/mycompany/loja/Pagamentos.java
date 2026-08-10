@@ -1,72 +1,41 @@
 package com.mycompany.loja;
 
-public class Pagamentos {
-    private int numero;
-    private double valor;
-    private String modalidade;
-    private String status;
+public abstract class Pagamentos {
+       private int numero;
+       private double valor;
+       private String status;
 
-    public Pagamentos(int numero, double valor, String modalidade) {
-        this.numero = numero;
-        this.valor = valor;
-        this.modalidade = modalidade;
-        this.status = "peendente";
-    }
+    public Pagamentos(int numero, double valor) {
+       this.numero = numero;
+       this.valor = valor;
+       this.status = "PENDENTE";
+}
 
     public int getNumero() {
-        return numero;
-    }
+       return numero;
+}
 
     public void setNumero(int numero) {
-        this.numero = numero;
-    }
+       this.numero = numero;
+}
 
     public double getValor() {
-        return valor;
-    }
+       return valor;
+}
 
     public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public String getModalidade() {
-        return modalidade;
-    }
-
-    public void setModalidade(String modalidade) {
-        this.modalidade = modalidade;
-    }
+       this.valor = valor;
+}
 
     public String getStatus() {
         return status;
-    }
+}
 
     public void setStatus(String status) {
         this.status = status;
-    }
+}
 
-    public void realizarPagamento() {
+    public abstract void realizarPagamento();
+    public abstract void mostrarPagamento();
 
-        if (valor <= 0) {
-            System.out.println("O valor do pagamento deve ser maior que zero.");
-            return;
-        }
-
-        if (modalidade == null || modalidade.trim().isEmpty()) {
-            System.out.println("A modalidade de pagamento deve ser informada.");
-            return;
-        }
-
-        status = "aprovado";
-
-        System.out.println("Pagamento realizado com sucesso!");
-    }
-
-    public void mostrarPagamento() {
-        System.out.println("Número: " + numero);
-        System.out.println("Valor: R$ " + valor);
-        System.out.println("Modalidade: " + modalidade);
-        System.out.println("Status: " + status);
-    }
-    
 }

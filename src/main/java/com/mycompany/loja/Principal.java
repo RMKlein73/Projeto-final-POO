@@ -11,7 +11,7 @@ Loja loja = new Loja();
     do {
 
         System.out.println("\n==============================");
-        System.out.println("       SISTEMA DA LOJA");
+        System.out.println("       BEM VINDO AO PDV");
         System.out.println("==============================");
         System.out.println("1 - Cadastrar Gerente");
         System.out.println("2 - Cadastrar Operador de Caixa");
@@ -95,25 +95,151 @@ Loja loja = new Loja();
 
             case 3:
 
-                System.out.println("\n--- REALIZAR PAGAMENTO ---");
+                System.out.println("\n===== FORMA DE PAGAMENTO =====");
+                System.out.println("1 - PIX");
+                System.out.println("2 - Boleto");
+                System.out.println("3 - Cartão");
+                System.out.print("Escolha uma opção: ");
+
+                int formaPagamento = scanner.nextInt();
+                scanner.nextLine();
+
                 System.out.print("Digite o número do pagamento: ");
                 int numero = scanner.nextInt();
+
                 System.out.print("Digite o valor: ");
                 double valor = scanner.nextDouble();
                 scanner.nextLine();
-                System.out.print("Digite a modalidade de pagamento: ");
-                String modalidade = scanner.nextLine();
 
-                Pagamentos pagamento = new Pagamentos(
-                        numero,
-                        valor,
-                        modalidade
-                );
-                pagamento.realizarPagamento();
+                Pagamentos pagamento = null;
 
-                if (pagamento.getStatus().equals("APROVADO")) {
-                    loja.cadastrarPagamento(pagamento);
+                if (formaPagamento == 1) {
+
+                    System.out.print("Digite a chave PIX: ");
+                    String chavePix = scanner.nextLine();
+
+                    pagamento = new Pix(
+                            numero,
+                            valor,
+                            chavePix
+                    );
+
+                } else if (formaPagamento == 2) {
+
+                    System.out.print("Digite o código de barras: ");
+                    String codigoBarras = scanner.nextLine();
+
+                    pagamento = new Boleto(
+                            numero,
+                            valor,
+                            codigoBarras
+                    );
+
+                } else if (formaPagamento == 3) {
+
+                    System.out.println("\n===== TIPO DE CARTÃO =====");
+                    System.out.println("1 - Débito");
+                    System.out.println("2 - Crédito");
+                    System.out.print("Escolha uma opção: ");
+
+                    int tipoCartao = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.print("Digite o número do cartão: ");
+                    String numeroCartao = scanner.nextLine();
+
+                    System.out.print("Digite o nome do titular: ");
+                    String nomeTitular = scanner.nextLine();
+
+                    System.out.print("Digite a bandeira: ");
+                    String bandeira = scanner.nextLine();
+
+                    System.out.print("Digite o CVV: ");
+                    String cvv = scanner.nextLine();
+
+                    if (tipoCartao == 1) {
+
+                        System.out.print("Digite o saldo disponível: ");
+                        double saldoDisponivel = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        System.out.print("Digite a senha: ");
+                        String senha = scanner.nextLine();
+
+                        pagamento = new Debito(
+                                numero,
+                                valor,
+                                numeroCartao,
+                                nomeTitular,
+                                bandeira,
+                                cvv,
+                                saldoDisponivel,
+                                senha
+                        );
+
+                    } else if (tipoCartao == 2) {
+
+                        System.out.print("Digite o limite disponível: ");
+                        double limiteDisponivel = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        System.out.println("1 - À vista");
+                        System.out.println("2 - Parcelado");
+                        System.out.print("Escolha uma opção: ");
+
+                        int tipoPagamento = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (tipoPagamento == 1) {
+
+                            pagamento = new Credito(
+                                    numero,
+                                    valor,
+                                    numeroCartao,
+                                    nomeTitular,
+                                    bandeira,
+                                    cvv,
+                                    limiteDisponivel
+                            );
+
+                        } else if (tipoPagamento == 2) {
+
+                            System.out.print("Digite a quantidade de parcelas: ");
+                            int quantidadeParcelas = scanner.nextInt();
+                            scanner.nextLine();
+
+                            pagamento = new Credito(
+                                    numero,
+                                    valor,
+                                    numeroCartao,
+                                    nomeTitular,
+                                    bandeira,
+                                    cvv,
+                                    limiteDisponivel,
+                                    quantidadeParcelas
+                            );
+
+                        } else {
+                            System.out.println("Opção inválida.");
+                        }
+
+                    } else {
+                        System.out.println("Opção inválida.");
+                    }
+
+                } else {
+                    System.out.println("Opção inválida.");
                 }
+
+                if (pagamento != null) {
+
+                    pagamento.realizarPagamento();
+
+                    if (pagamento.getStatus().equals("APROVADO")) {
+                        loja.cadastrarPagamento(pagamento);
+                    }
+                }
+
                 break;
 
             case 4:
