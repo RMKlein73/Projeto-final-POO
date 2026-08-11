@@ -4,8 +4,9 @@ public class OperadorCaixa extends Funcionario {
     private int numeroCaixa;
     private String status;
 
-public OperadorCaixa(int id, String nome, String cpf, double salario, String cargo, int numeroCaixa) {
-    super(id, nome, cpf, salario, cargo);
+public OperadorCaixa(int id, String nome, String cpf, double salario,
+    String cargo, String senha, int numeroCaixa) {
+    super(id, nome, cpf, salario, cargo, senha);
     this.numeroCaixa = numeroCaixa;
     this.status = "FECHADO";
 }
